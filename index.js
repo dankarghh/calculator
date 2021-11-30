@@ -17,6 +17,12 @@ numberButtons.forEach((button) => {
   });
 });
 
+deleteButton.addEventListener("click", (e) => {
+  let number = currentOperationScreen.textContent;
+  let newNumber = number.substring(0, number.length - 1);
+  currentOperationScreen.textContent = newNumber;
+});
+
 operationsButtons.forEach((button) => {
   button.addEventListener("click", (e) => {
     operator = e.target.innerText;
@@ -39,34 +45,10 @@ clearButton.addEventListener("click", (e) => {
 equalsButton.addEventListener("click", (e) => {
   secondOperand = Number(currentOperationScreen.innerText);
   console.log(operator);
-  let result = add(firstOperand, secondOperand);
-
+  let result = compute();
   lastOperationScreen.textContent = `${lastOperationScreen.innerText} ${currentOperationScreen.innerText}`;
   currentOperationScreen.innerText = `${result}`;
 });
-
-//BASIC FUNCTIONALITY
-
-function add(firstOperand, secondOperand) {
-  return firstOperand + secondOperand;
-}
-function subtract(firstOperand, secondOperand) {
-  return firstOperand - secondOperand;
-}
-function multiply(firstOperand, secondOperand) {
-  return firstOperand * secondOperand;
-}
-function divide(firstOperand, secondOperand) {
-  return firstOperand / secondOperand;
-}
-
-console.log(subtract(35, 2));
-
-function operate(operator, firstOperand, secondOperand) {
-  return operator(firstOperand, secondOperand);
-}
-
-console.log(operate(add, 7, 3));
 
 function reset() {
   firstOperand = "";
@@ -74,4 +56,23 @@ function reset() {
   operator = undefined;
   lastOperationScreen.textContent = "";
   currentOperationScreen.textContent = "";
+}
+
+function compute() {
+  let result = "";
+  switch (operator) {
+    case "+":
+      result = firstOperand + secondOperand;
+      break;
+    case "-":
+      result = firstOperand - secondOperand;
+      break;
+    case "/":
+      result = firstOperand / secondOperand;
+      break;
+    case "x":
+      result = firstOperand * secondOperand;
+      break;
+  }
+  return result;
 }
