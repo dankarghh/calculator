@@ -1,0 +1,31 @@
+.calculator_btns {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+.calculator_screen {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-right: 1rem;
+}
+.calculator_body {
+  border: 1px solid black;
+  width: 400px;
+}
+.btn {
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.btn_equals {
+  grid-column: span 2;
+
+  background: green;
+}
+.btn_func {
+  background: grey;
+}
