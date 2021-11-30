@@ -8,11 +8,17 @@ const deleteButton = document.querySelector("[data-delete");
 
 let firstOperand = "";
 let secondOperand = "";
-let operator = undefined;
-let result = "";
+let operator = null;
+let result = null;
 
 numberButtons.forEach((button) => {
   button.addEventListener("click", (e) => {
+    if (
+      currentOperationScreen.textContent.includes(".") === true &&
+      e.target.innerText === "."
+    )
+      return;
+
     let value = e.target.innerText;
     currentOperationScreen.textContent += value;
   });
@@ -26,15 +32,27 @@ deleteButton.addEventListener("click", (e) => {
 
 operationsButtons.forEach((button) => {
   button.addEventListener("click", (e) => {
-    operator = e.target.innerText;
-    if (firstOperand === "") {
-      firstOperand = Number(currentOperationScreen.innerText);
-      lastOperationScreen.textContent = `${currentOperationScreen.innerText} ${operator}`;
-      currentOperationScreen.textContent = "";
+    if (operator != null && result === null) {
+      operator = e.target.innerText;
+      secondOperand = Number(currentOperationScreen.innerText);
+      let newResult = compute();
+      console.log(newResult);
+      firstOperand = newResult;
+      result = compute();
+
+      lastOperationScreen.textContent = `${firstOperand} ${operator} ${secondOperand}`;
+      currentOperationScreen.innerText = `${result}`;
     } else {
-      lastOperationScreen.textContent = `${currentOperationScreen.innerText} ${operator}`;
-      firstOperand = Number(currentOperationScreen.innerText);
-      currentOperationScreen.textContent = "";
+      operator = e.target.innerText;
+      if (firstOperand === "") {
+        firstOperand = Number(currentOperationScreen.innerText);
+        lastOperationScreen.textContent = `${firstOperand} ${operator}`;
+        currentOperationScreen.textContent = "";
+      } else {
+        lastOperationScreen.textContent = `${currentOperationScreen.innerText} ${operator}`;
+        firstOperand = Number(currentOperationScreen.innerText);
+        currentOperationScreen.textContent = "";
+      }
     }
   });
 });
@@ -42,17 +60,25 @@ operationsButtons.forEach((button) => {
 clearButton.addEventListener("click", reset);
 
 equalsButton.addEventListener("click", (e) => {
-  secondOperand = Number(currentOperationScreen.innerText);
-  console.log(operator);
-  let result = compute();
-  lastOperationScreen.textContent = `${lastOperationScreen.innerText} ${currentOperationScreen.innerText}`;
-  currentOperationScreen.innerText = `${result}`;
+  if (firstOperand === "") return;
+  if (secondOperand === "") {
+    secondOperand = Number(currentOperationScreen.innerText);
+    let result = compute();
+    lastOperationScreen.textContent = `${firstOperand} ${operator} ${secondOperand}`;
+    currentOperationScreen.innerText = `${result}`;
+  } else {
+    secondOperand = Number(currentOperationScreen.innerText);
+    let result = compute();
+    lastOperationScreen.textContent = `${firstOperand} ${operator} ${secondOperand}`;
+    currentOperationScreen.innerText = `${result}`;
+  }
 });
 
 function reset() {
   firstOperand = "";
   secondOperand = "";
-  operator = undefined;
+  result = null;
+  operator = null;
   lastOperationScreen.textContent = "";
   currentOperationScreen.textContent = "";
 }
@@ -75,3 +101,7 @@ function compute() {
   }
   return result;
 }
+
+//fix multiple equals presses
+
+//fix chaining operations aka not pressing equals
