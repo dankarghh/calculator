@@ -16,7 +16,8 @@ body {
 }
 .calculator_screen {
   display: flex;
-  justify-content: flex-end;
+  align-items: flex-end;
+  flex-direction: column;
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
   padding-right: 1rem;
@@ -25,6 +26,7 @@ body {
   margin-top: 10px;
   border-radius: 5px;
   background: honeydew;
+  height: 50px;
 }
 .calculator_body {
   border: 1px solid black;
@@ -56,4 +58,15 @@ body {
 }
 .btn_func {
   background: rgb(190, 174, 174);
+}
+.btn_clear {
+  grid-column: span 2;
+  background: rgb(218, 83, 110);
+}
+.screen-current {
+  font-size: 2rem;
+  display: block;
+}
+.screen-last {
+  display: block;
 }
