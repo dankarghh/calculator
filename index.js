@@ -9,6 +9,7 @@ const deleteButton = document.querySelector("[data-delete");
 let firstOperand = "";
 let secondOperand = "";
 let operator = undefined;
+let result = "";
 
 numberButtons.forEach((button) => {
   button.addEventListener("click", (e) => {
@@ -38,9 +39,7 @@ operationsButtons.forEach((button) => {
   });
 });
 
-clearButton.addEventListener("click", (e) => {
-  reset();
-});
+clearButton.addEventListener("click", reset);
 
 equalsButton.addEventListener("click", (e) => {
   secondOperand = Number(currentOperationScreen.innerText);
